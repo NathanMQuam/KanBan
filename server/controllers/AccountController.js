@@ -1,5 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { accountService } from '../services/AccountService'
+import { boardsService } from '../services/BoardsService.js'
 import BaseController from '../utils/BaseController'
 
 export class AccountController extends BaseController {
@@ -13,7 +14,7 @@ export class AccountController extends BaseController {
       .put('/', this.editAccount)
   }
 
-  async getUserAccount (req, res, next) {
+  async getUserAccount(req, res, next) {
     try {
       const account = await accountService.getAccount(req.userInfo)
       res.send(account)
@@ -22,15 +23,15 @@ export class AccountController extends BaseController {
     }
   }
 
-  async getUserBoards (req, res, next) {
+  async getUserBoards(req, res, next) {
     try {
-      // const account = await accountService
+      console.log(await boardsService.getBoardsByUserId())
     } catch (error) {
       next(error)
     }
   }
 
-  async getUserComments (req, res, next) {
+  async getUserComments(req, res, next) {
     try {
       //
     } catch (error) {
@@ -38,7 +39,7 @@ export class AccountController extends BaseController {
     }
   }
 
-  async editAccount (req, res, next) {
+  async editAccount(req, res, next) {
     try {
       //
     } catch (error) {
