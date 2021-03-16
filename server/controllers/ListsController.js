@@ -1,5 +1,4 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { boardsService } from '../services/BoardsService.js'
 import BaseController from '../utils/BaseController.js'
 import { listsService } from '../services/ListsService'
 
