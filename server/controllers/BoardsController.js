@@ -11,7 +11,7 @@ export class BoardsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createBoard)
       // .put('/:id', this.editBoard)
-      // .delete('/:id', this.deleteBlog)
+      .delete('/:id', this.deleteBoard)
   }
 
   async createBoard(req, res, next) {
@@ -30,4 +30,14 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
+
+  async deleteBoard(req, res, next) {
+    try {
+      return res.send(await boardsService.delete(req.params.id, req.userInfo.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  
 }
