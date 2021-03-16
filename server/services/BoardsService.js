@@ -5,8 +5,12 @@ class BoardsService {
     return await dbContext.Board.create(body)
   }
 
-  async getBoardsByUserId(query = {}) {
-    return await dbContext.Board.find(query)
+  async getUserBoards(userId) {
+    return await dbContext.Board.find({ creatorId: userId })
+  }
+
+  async getBoardById(query) {
+    return await dbContext.Board.findById(query)
   }
 
   async deleteBoard(id, userId) {

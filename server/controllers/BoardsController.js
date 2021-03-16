@@ -6,9 +6,10 @@ export class BoardsController extends BaseController {
   constructor() {
     super('api/boards')
     this.router
-      .get('/:id', this.getBoardById)
-      // .get('/:id/lists', this.getListsByBoardId)
+    // .get('/:id/lists', this.getListsByBoardId)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('/:creatorId', this.getBoardById)
+      .get('/', this.getUserBoards)
       .post('', this.createBoard)
       // .put('/:id', this.editBoard)
       .delete('/:id', this.deleteBoard)
@@ -23,9 +24,17 @@ export class BoardsController extends BaseController {
     }
   }
 
+  async getUserBoards(req, res, next) {
+    try {
+      return res.send(await boardsService.getUserBoards(req.userInfo.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async getBoardById(req, res, next) {
     try {
-      return res.send(await boardsService.getBoardsByUserId())
+      return res.send(await boardsService.getBoardById(req.params.id))
     } catch (error) {
       next(error)
     }
