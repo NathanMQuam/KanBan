@@ -11,6 +11,7 @@ export class TasksController extends BaseController {
       .post('/', this.createTask)
       .delete('/:id', this.deleteTask)
       .get('/:id/comments', this.getCommentsByTaskId)
+      .put('/:id', this.editTask)
   }
 
   async createTask(req, res, next) {
@@ -33,6 +34,15 @@ export class TasksController extends BaseController {
   async getCommentsByTaskId(req, res, next) {
     try {
       return res.send(await commentsService.getCommentsByTaskId({ taskId: req.params.id }))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editTask(req, res, next) {
+    try {
+      req.body.creatorId = req.userInfo.id
+      res.send(await tasksService.editTask(req.params.id, req.userInfo.id, req.body))
     } catch (error) {
       next(error)
     }

@@ -20,6 +20,13 @@ class TasksService {
       throw new BadRequest('You are not the CREATOR or BAD ID.')
     }
   }
+
+  async editTask(id, userId, body) {
+    const post = await dbContext.Task.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
+    if (!post) {
+      throw new BadRequest('You are not the CREATOR or BAD ID.')
+    }
+  }
 }
 
 export const tasksService = new TasksService()

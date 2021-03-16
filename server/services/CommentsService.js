@@ -16,6 +16,13 @@ class CommentsService {
       throw new BadRequest('You are not the CREATOR or BAD ID.')
     }
   }
+
+  async editComment(id, userId, body) {
+    const post = await dbContext.Comment.findOneAndUpdate({ _id: id, creatorId: userId }, body, { new: true })
+    if (!post) {
+      throw new BadRequest('You are not the CREATOR or BAD ID.')
+    }
+  }
 }
 
 export const commentsService = new CommentsService()
