@@ -10,6 +10,7 @@ export class ListsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('/', this.createList)
       .put('/:id', this.editList)
+      .delete('/:id', this.deleteList)
   }
 
   async createList(req, res, next) {
