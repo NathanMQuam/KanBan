@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { boardsService } from '../services/BoardsService.js'
 import { listsService } from '../services/ListsService.js'
+import { tasksService } from '../services/TasksService.js'
 import BaseController from '../utils/BaseController.js'
 
 export class BoardsController extends BaseController {
@@ -15,6 +16,7 @@ export class BoardsController extends BaseController {
       .post('', this.createBoard)
       .put('/:id', this.editBoard)
       .delete('/:id', this.deleteBoard)
+      .get('/:id/tasks', this.getTasksByBoardId)
   }
 
   async createBoard(req, res, next) {
@@ -62,6 +64,14 @@ export class BoardsController extends BaseController {
   async getListsByBoardId(req, res, next) {
     try {
       return res.send(await listsService.getListsByBoardId({ boardId: req.params.id }))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getTasksByBoardId(req, res, next) {
+    try {
+      return res.send(await tasksService.getTasksByBoardId({ boardId: req.params.id }))
     } catch (error) {
       next(error)
     }
