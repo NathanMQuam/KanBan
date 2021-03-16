@@ -33,7 +33,7 @@ export class BoardsController extends BaseController {
 
   async deleteBoard(req, res, next) {
     try {
-      return res.send(await boardsService.delete(req.params.id, req.userInfo.id))
+      return res.send(await boardsService.deleteBoard(req.params.id, req.userInfo.id))
     } catch (error) {
       next(error)
     }
