@@ -38,6 +38,4 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-
-  
 }
