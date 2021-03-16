@@ -1,8 +1,8 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import BaseController from '../utils/BaseController.js'
-import { taskService } from '../services/TaskService'
+import { tasksService } from '../services/TasksService'
 
-export class TaskController extends BaseController {
+export class TasksController extends BaseController {
   constructor() {
     super('api/tasks')
     this.router
@@ -13,7 +13,7 @@ export class TaskController extends BaseController {
   async createTask(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
-      return res.send(await taskService.createList(req.body))
+      return res.send(await tasksService.createTask(req.body))
     } catch (error) {
       next(error)
     }

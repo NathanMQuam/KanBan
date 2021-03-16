@@ -1,8 +1,10 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
-class TaskService {
+class TasksService {
   async createTask(body) {
-    return await dbContext.List.create(body)
+    return await dbContext.Task.create(body)
   }
 }
+
+export const tasksService = new TasksService()
